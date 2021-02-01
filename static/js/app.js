@@ -3,7 +3,30 @@ var dataLoc = "./data/samples.json";
 
 
 
+// var trace = {
+//     x: [2, 4],
+//     y: ["a", "b"],
+//     name: "Top microbes by CFU's",
+//     type: "bar",
+//     orientation: "h"
+//   };
 
+// console.log(trace)
+
+//   var data = [trace];
+
+
+// // Apply the group bar mode to the layout
+// var layout = {
+//     title: "Top microbes by CFU's",
+//     margin: {
+//     l: 100,
+//     r: 100,
+//     t: 100,
+//     b: 100
+//     }
+
+// Plotly.newPlot("bar", data, layout);
 
 
 
@@ -49,19 +72,49 @@ function optionChanged() {
     
     sData.forEach(function(d) {
         if (d.id == dataset) {
-            visData.lab = d.otu_ids;
-            visData.val = d.sample_values;
+            visData.lab = d.otu_ids.map(x => `OTU ${x}`);
+
+            visData.val = d.sample_values.slice(0,10);
         }
     })
 
     
 
-    updatePlotly(visData);
+    updateBar(visData);
     
   }
 
-  function updatePlotly(d) {
-    console.log(d);
+function updateBar(d) {
+    console.log(d.lab)
+    console.log(d.val)
+
+
+
+    var trace = {
+        x: d.val,
+        y: d.lab,
+        type: "bar",
+        orientation: "h"
+      };
+
+    console.log(trace)
+
+      var data = [trace];
+
+
+    // Apply the group bar mode to the layout
+    var layout = {
+        title: "Top microbes by CFU's",
+        margin: {
+        l: 100,
+        r: 100,
+        t: 100,
+        b: 100
+        }
+
+    Plotly.newPlot("bar", data, layout);
+  };
+  
 };
 
 
