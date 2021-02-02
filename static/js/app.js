@@ -2,18 +2,6 @@ var dataLoc = "./data/samples.json";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 d3.json(dataLoc).then(function(d) {
 
   var demBlank = [
@@ -88,20 +76,51 @@ function optionChanged() {
       }
     });
 
-    
-
-    
-
-    
-
-
-    
 
     updateBar(visData);
     updateBubble(visData);
     updateDemographics(demData);
+    updateGauge(demData)
     
   }
+
+function updateGauge(d) {
+  var washes = d.wfreq;
+
+  var data = [
+    {
+      value: washes,
+      title: { text: "Wash Frequency" },
+      type: "indicator",
+      mode: "gauge",
+      gauge: {
+        bar: {
+          color: "#336699",
+          thickness: .8
+        },
+        axis: {range: [0, 9]},
+        steps: [
+          { range: [0, 1], color: "#1a75ff" },
+          { range: [1, 2], color: "#3385ff" },
+          { range: [2, 3], color: "#4c94ff" },
+          { range: [3, 4], color: "#66a3ff" },
+          { range: [4, 5], color: "#80b2ff" },
+          { range: [5, 6], color: "#99c2ff" },
+          { range: [6, 7], color: "#b2d1ff" },
+          { range: [7, 8], color: "#cce0ff" },
+          { range: [8, 9], color: "#e6f0ff" },
+        ]
+      }
+
+    }
+  ];
+  
+  var layout = { width: 500, height: 300, margin: { t: 0, b: 0 } };
+  Plotly.newPlot('gauge', data, layout);
+}
+
+
+
 
 function updateDemographics(d) {
   var demArr = [
@@ -147,18 +166,14 @@ function updateBubble(d) {
   var layout = {
     title: "Complete Belly-Button Flora",
     height: 500,
-    width: 1100
+    width: "100%"
   };
 
   Plotly.newPlot("bubble", data, layout)
 
-}
+};
 
 function updateBar(d) {
-
-
-
-
 
 
     var trace = {
@@ -173,8 +188,6 @@ function updateBar(d) {
 
       var data = [trace];
 
-
-    // Apply the group bar mode to the layout
     var layout = {
         title: "Top microbes by CFU's",
 
@@ -183,37 +196,7 @@ function updateBar(d) {
   
 };
 
-
-
     
 });
-
-
-
-
-
-
-
-// // d3.json(dataLoc).then(function(data) {
-// //     console.log(data);
-
-// //     var sData= data.samples;
-    
-
-// //     console.log(sData);
-
-    
-// //   });
-
-// var select = document.getElementById("#selDataset"); 
-// var options = ["1", "2", "3", "4", "5"]; 
-
-// for(var i = 0; i < options.length; i++) {
-//     var opt = options[i];
-//     var el = document.createElement("option");
-//     el.textContent = opt;
-//     el.value = opt;
-//     select.appendChild(el);
-// }​
 
 
