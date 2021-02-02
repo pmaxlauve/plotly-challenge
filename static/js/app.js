@@ -16,6 +16,28 @@ var dataLoc = "./data/samples.json";
 
 d3.json(dataLoc).then(function(d) {
 
+  var demBlank = [
+    `ID: `,
+    `Ethnicity: `,
+    `Gender: `,
+    `Age: `,
+    `City/State: `,
+    `Type: `,
+    `Wash Frequency: `
+  ];
+
+
+  
+    d3.select('#sample-metadata')
+    .append("ul")
+    .selectAll("li")
+    .data(demBlank)
+    .enter()
+    .append("li")
+    .text(function(d) {
+      return d;
+    });
+
 
     var idArr = d.names;
     
@@ -92,17 +114,18 @@ function updateDemographics(d) {
     `Wash Frequency: ${d.wfreq}`
   ];
 
-  d3.select("#sample-metadata")
-    .append("ul")
+  var demInfo = d3.select('#sample-metadata');
+
+  
+    demInfo
     .selectAll("li")
     .data(demArr)
-    .enter()
-    .append("li")
     .text(function(d) {
       return d;
     });
 
-  console.log(demArr);
+
+
 }
 
 function updateBubble(d) {
